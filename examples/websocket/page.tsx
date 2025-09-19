@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,7 +16,7 @@ type Message = {
 export default function SocketDemo() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState('');
-  const [socket, setSocket] = useState<any>(null);
+  const [socket, setSocket] = useState<Socket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
@@ -45,16 +45,15 @@ export default function SocketDemo() {
 
   const sendMessage = () => {
     if (socket && inputMessage.trim()) {
-      setMessages(prev => [...prev, {
+      const newMessage: Message = {
         text: inputMessage.trim(),
         senderId: socket.id || 'user',
         timestamp: new Date().toISOString()
-      }]);
-      socket.emit('message', {
-        text: inputMessage.trim(),
-        senderId: socket.id || 'user',
-        timestamp: new Date().toISOString()
-      });
+      };
+      // Optimistically add the message to the UI
+      setMessages(prev => [...prev, newMessage]);
+      // Send the message to the server
+      socket.emit('message', newMessage);
       setInputMessage('');
     }
   };
