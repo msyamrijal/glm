@@ -34,6 +34,21 @@ export async function POST(request: NextRequest) {
     // In a real app, you would get this from authentication
     const userId = 'default-user-id'
 
+    // Check if user exists, if not create it
+    let user = await db.user.findUnique({
+      where: { id: userId }
+    })
+
+    if (!user) {
+      user = await db.user.create({
+        data: {
+          id: userId,
+          email: 'demo@example.com',
+          name: 'Demo User'
+        }
+      })
+    }
+
     const term = await db.term.create({
       data: {
         name,
