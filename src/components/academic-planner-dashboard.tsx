@@ -92,6 +92,10 @@ export function AcademicPlannerDashboard() {
       }
     } catch (error) {
       console.error('Error fetching dashboard data:', error)
+      // Set empty arrays on error to prevent undefined issues
+      setTerms([])
+      setUpcomingAssignments([])
+      setUpcomingEvents([])
     } finally {
       setLoading(false)
     }

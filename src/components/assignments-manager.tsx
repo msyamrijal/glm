@@ -84,6 +84,7 @@ export function AssignmentsManager() {
       }
     } catch (error) {
       console.error('Error fetching assignments:', error)
+      setAssignments([])
     } finally {
       setLoading(false)
     }
@@ -98,6 +99,7 @@ export function AssignmentsManager() {
       }
     } catch (error) {
       console.error('Error fetching courses:', error)
+      setCourses([])
     }
   }
 
@@ -110,6 +112,7 @@ export function AssignmentsManager() {
       }
     } catch (error) {
       console.error('Error fetching terms:', error)
+      setTerms([])
     }
   }
 

@@ -71,6 +71,7 @@ export function EventsManager() {
       }
     } catch (error) {
       console.error('Error fetching events:', error)
+      setEvents([])
     } finally {
       setLoading(false)
     }
@@ -85,6 +86,7 @@ export function EventsManager() {
       }
     } catch (error) {
       console.error('Error fetching terms:', error)
+      setTerms([])
     }
   }
 

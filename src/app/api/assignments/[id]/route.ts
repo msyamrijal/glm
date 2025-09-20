@@ -3,11 +3,12 @@ import { db } from '@/lib/db'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const assignment = await db.assignment.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         term: true,
         course: true,
@@ -27,9 +28,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const body = await request.json()
     const { title, description, dueDate, priority, status, courseId, termId } = body
 
@@ -38,7 +40,7 @@ export async function PUT(
     }
 
     const assignment = await db.assignment.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title,
         description,
@@ -63,11 +65,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     await db.assignment.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Assignment deleted successfully' })

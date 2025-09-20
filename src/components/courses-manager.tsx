@@ -68,6 +68,7 @@ export function CoursesManager() {
       }
     } catch (error) {
       console.error('Error fetching courses:', error)
+      setCourses([])
     } finally {
       setLoading(false)
     }
@@ -82,6 +83,7 @@ export function CoursesManager() {
       }
     } catch (error) {
       console.error('Error fetching terms:', error)
+      setTerms([])
     }
   }
 

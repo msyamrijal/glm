@@ -14,21 +14,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Z.ai Code Scaffold - AI-Powered Development",
-  description: "Modern Next.js scaffold optimized for AI-powered development with Z.ai. Built with TypeScript, Tailwind CSS, and shadcn/ui.",
-  keywords: ["Z.ai", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI development", "React"],
-  authors: [{ name: "Z.ai Team" }],
+  title: "Academic Planner - Organize Your Studies",
+  description: "A comprehensive academic planner to manage terms, courses, assignments, and events. Built with Next.js, TypeScript, and shadcn/ui.",
+  keywords: ["academic planner", "student organizer", "course management", "assignment tracker", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+  authors: [{ name: "Academic Planner Team" }],
   openGraph: {
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
-    url: "https://chat.z.ai",
-    siteName: "Z.ai",
+    title: "Academic Planner",
+    description: "Organize your academic life with our comprehensive planner",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Z.ai Code Scaffold",
-    description: "AI-powered development with modern React stack",
+    title: "Academic Planner",
+    description: "Organize your academic life with our comprehensive planner",
   },
 };
 

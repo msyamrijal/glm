@@ -3,11 +3,12 @@ import { db } from '@/lib/db'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const term = await db.term.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         courses: true,
         assignments: true,
@@ -28,9 +29,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const body = await request.json()
     const { name, startDate, endDate } = body
 
@@ -39,7 +41,7 @@ export async function PUT(
     }
 
     const term = await db.term.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name,
         startDate: new Date(startDate),
@@ -61,11 +63,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     await db.term.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Term deleted successfully' })

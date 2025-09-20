@@ -3,11 +3,12 @@ import { db } from '@/lib/db'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const event = await db.event.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         term: true,
       },
@@ -26,9 +27,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     const body = await request.json()
     const { title, description, startDate, endDate, location, type, termId } = body
 
@@ -37,7 +39,7 @@ export async function PUT(
     }
 
     const event = await db.event.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title,
         description,
@@ -61,11 +63,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await context.params
     await db.event.delete({
-      where: { id: params.id },
+      where: { id },
     })
 
     return NextResponse.json({ message: 'Event deleted successfully' })

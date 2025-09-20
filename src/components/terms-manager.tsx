@@ -50,6 +50,7 @@ export function TermsManager() {
       }
     } catch (error) {
       console.error('Error fetching terms:', error)
+      setTerms([])
     } finally {
       setLoading(false)
     }

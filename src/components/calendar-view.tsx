@@ -16,6 +16,7 @@ interface Assignment {
   dueDate: string
   priority: number
   status: 'PENDING' | 'IN_PROGRESS' | 'COMPLETED' | 'OVERDUE'
+  termId: string
   course?: {
     name: string
     code?: string
@@ -30,6 +31,7 @@ interface Event {
   endDate: string
   location?: string
   type: 'GENERAL' | 'EXAM' | 'PROJECT' | 'MEETING' | 'HOLIDAY'
+  termId: string
 }
 
 interface Term {
@@ -76,6 +78,9 @@ export function CalendarView() {
       }
     } catch (error) {
       console.error('Error fetching calendar data:', error)
+      setAssignments([])
+      setEvents([])
+      setTerms([])
     } finally {
       setLoading(false)
     }
