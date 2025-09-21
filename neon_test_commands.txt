@@ -1,0 +1,80 @@
+# Test Commands untuk Neon.tech Setup
+
+# Test setelah setup Neon + Vercel
+
+## 1. Health Check
+curl https://glm-omega.vercel.app/api/health
+# Expected: {"message":"Good!"}
+
+## 2. Test Terms API
+curl https://glm-omega.vercel.app/api/terms
+# Expected: [] (empty array) atau list of terms
+
+## 3. Test Courses API
+curl https://glm-omega.vercel.app/api/courses
+# Expected: [] (empty array) atau list of courses
+
+## 4. Test Assignments API
+curl https://glm-omega.vercel.app/api/assignments
+# Expected: [] (empty array) atau list of assignments
+
+## 5. Test Events API
+curl https://glm-omega.vercel.app/api/events
+# Expected: [] (empty array) atau list of events
+
+## 6. Test POST Request (Create Term)
+curl -X POST https://glm-omega.vercel.app/api/terms \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Fall 2024",
+    "startDate": "2024-09-01T00:00:00.000Z",
+    "endDate": "2024-12-15T00:00:00.000Z"
+  }'
+
+## 7. Test GET Term (setelah create)
+curl https://glm-omega.vercel.app/api/terms
+
+## 8. Test Create Course
+curl -X POST https://glm-omega.vercel.app/api/courses \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Computer Science 101",
+    "code": "CS101",
+    "instructor": "Dr. Smith",
+    "credits": 3,
+    "termId": "[TERM_ID_DARI_STEP_6]"
+  }'
+
+## 9. Test Create Assignment
+curl -X POST https://glm-omega.vercel.app/api/assignments \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Midterm Exam",
+    "description": "Covers chapters 1-5",
+    "dueDate": "2024-10-15T00:00:00.000Z",
+    "priority": 2,
+    "status": "PENDING",
+    "termId": "[TERM_ID_DARI_STEP_6]",
+    "courseId": "[COURSE_ID_DARI_STEP_8]"
+  }'
+
+## 10. Test Create Event
+curl -X POST https://glm-omega.vercel.app/api/events \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Final Exam",
+    "description": "Comprehensive final exam",
+    "startDate": "2024-12-10T09:00:00.000Z",
+    "endDate": "2024-12-10T11:00:00.000Z",
+    "location": "Room 101",
+    "type": "EXAM",
+    "termId": "[TERM_ID_DARI_STEP_6]"
+  }'
+
+## 11. Test Delete (opsional)
+curl -X DELETE https://glm-omega.vercel.app/api/terms/[TERM_ID]
+
+## Notes:
+- Ganti [TERM_ID_DARI_STEP_6] dengan ID yang didapat dari response
+- Ganti [COURSE_ID_DARI_STEP_8] dengan ID yang didapat dari response
+- Test di browser untuk full UI experience
